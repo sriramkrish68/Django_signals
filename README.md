@@ -10,7 +10,7 @@ This project demonstrates key concepts in **Django Signals** and **Python Custom
 ### 1. Clone the Repository
 
 ```bash
-git clone [https://github.com/<your-username>/django-signals-assignment.git](https://github.com/sriramkrish68/Django_signals)
+git clone https://github.com/sriramkrish68/Django_signals.git
 cd Django_signals
 ```
 
@@ -60,8 +60,10 @@ python manage.py shell
 ### ✅ Q1: Are Django signals synchronous?
 
 > **Yes**, Django signals are synchronous by default.
-> We demonstrate this using a `time.sleep()` in the signal, which delays the main thread during `Book.objects.create()`.
-
+> We demonstrate this using a `time.sleep()` in the signal, which delays the main thread during `User.objects.create_user()`.
+> I have created a new user. The post_save signal was triggered immediately, and it had a 3-second delay inside it.
+The total time taken shows around 3 seconds, proving that the main thread waited for the signal to finish.
+So yes, Django signals are synchronous by default.
 ---
 
 ### ✅ Q2: Do Django signals run in the same thread as the caller?
@@ -74,7 +76,8 @@ python manage.py shell
 ### ✅ Q3: Do Django signals run in the same database transaction as the caller?
 
 > **No**, not by default.
-> Django runs in **autocommit mode**, so signals run **outside** transactions unless you explicitly use `transaction.atomic()`.
+> By default Django signals do not run in the same database transaction as the caller.
+This is because Django runs in autocommit mode. That means each .save() or .create() is immediately committed, and signals like post_save are triggered after the save operation, outside any explicit transaction context unless wrapped in transaction.atomic().
 
 ---
 
