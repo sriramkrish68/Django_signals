@@ -64,6 +64,7 @@ We demonstrate this using a `time.sleep()` in the signal, which delays the main 
 I have created a new user. The post_save signal was triggered immediately, and it had a 3-second delay inside it.
 The total time taken shows around 3 seconds, proving that the main thread waited for the signal to finish.
 So yes, Django signals are synchronous by default.
+
 ---
 
 ### Q2: Do Django signals run in the same thread as the caller?
