@@ -1,4 +1,4 @@
-# Django Signals & Python Custom Class – Assignment Submission
+# Django Signals & Python Custom Class Assignment Submission
 
 
 ## Project Overview
