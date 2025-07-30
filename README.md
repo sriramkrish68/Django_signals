@@ -69,14 +69,14 @@ So yes, Django signals are synchronous by default.
 ### Q2: Do Django signals run in the same thread as the caller?
 
 **Yes**, the signal executes in the **same thread** as the one that triggers it.
-We compare thread IDs before and inside the `post_save` signal.
+ compare thread IDs before and inside the `post_save` signal. When Django executes signals, it doesn't spawn a new thread.
+Signals run in the same thread as the function that triggered them.
 
 ---
 
 ### Q3: Do Django signals run in the same database transaction as the caller?
 
-**No**, not by default.
-By default Django signals do not run in the same database transaction as the caller.
+**No**, not by default. By default Django signals do not run in the same database transaction as the caller.
 This is because Django runs in autocommit mode. That means each .save() or .create() is immediately committed, and signals like post_save are triggered after the save operation, outside any explicit transaction context unless wrapped in transaction.atomic().
 
 ---
